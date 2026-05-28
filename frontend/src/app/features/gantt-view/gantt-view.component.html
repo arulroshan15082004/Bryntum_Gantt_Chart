@@ -1,0 +1,100 @@
+<app-page-header title="Interactive Gantt Scheduler"></app-page-header>
+
+<div class="gantt-view-container">
+  <div *ngIf="!selectedProjectId" class="empty-layout">
+    <span nz-icon nzType="project" class="empty-icon"></span>
+    <h3>Please select a project to load its interactive Gantt schedule.</h3>
+  </div>
+
+  <div *ngIf="selectedProjectId" class="gantt-layout">
+    
+    <!-- Controls & Legend -->
+    <div class="gantt-toolbar">
+      <div class="left-controls">
+        <button nz-button nzType="primary" (click)="openCreateDrawer()">
+          <span nz-icon nzType="plus"></span> Add Task
+        </button>
+        <button nz-button nzType="default" (click)="openDependencyModal()">
+          <span nz-icon nzType="link"></span> Create Dependency
+        </button>
+      </div>
+      
+      <!-- Legend markers -->
+      <div class="legend-panel">
+        <span class="legend-item"><span class="legend-box root-task"></span> Summary Task</span>
+        <span class="legend-item"><span class="legend-box leaf-task"></span> Standard Task</span>
+        <span class="legend-item"><span class="legend-box milestone-task"></span> Milestone</span>
+      </div>
+    </div>
+
+    <div *ngIf="flatTasks.length === 0" class="empty-schedule">
+      <span nz-icon nzType="info-circle" class="empty-icon"></span>
+      <h3>No tasks found in this project schedule.</h3>
+      <p>Click "Add Task" to create your first scheduling record manually, or use "Task Inventory" to bulk import CSV tasks.</p>
+    </div>
+
+    <!-- Master Gantt Workspace: Real Bryntum Gantt Integration -->
+    <div *ngIf="flatTasks.length > 0" class="gantt-workspace" style="flex-grow: 1; height: 100%; min-height: 400px; border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden;">
+      <bryntum-gantt
+        #gantt
+        style="width: 100%; height: 100%; display: block;"
+        [tasks]="taskTree"
+        [dependencies]="dependencies"
+        [resources]="resources"
+        [columns]="ganttColumns"
+        [startDate]="projectStartDate"
+        [endDate]="projectEndDate"
+        [rowHeight]="45"
+        [barMargin]="5"
+      ></bryntum-gantt>
+    </div>
+  </div>
+</div>
+
+<!-- Create Dependency Modal Context -->
+<nz-modal
+  [(nzVisible)]="isDepModalVisible"
+  nzTitle="Create Dependency Link"
+  (nzOnCancel)="closeDependencyModal()"
+  (nzOnOk)="submitDependency()"
+  [nzOkLoading]="depSubmitting"
+>
+  <div *nzModalContent class="dep-form-content">
+    <div class="form-row">
+      <label>Source Task (Predecessor)</label>
+      <nz-select [(ngModel)]="depFromTaskId" class="modal-select" nzPlaceHolder="Select predecessor task">
+        <nz-option *ngFor="let t of flatTasks" [nzValue]="t._id || t.id" [nzLabel]="t.name"></nz-option>
+      </nz-select>
+    </div>
+
+    <div class="form-row" style="margin-top: 16px;">
+      <label>Target Task (Successor)</label>
+      <nz-select [(ngModel)]="depToTaskId" class="modal-select" nzPlaceHolder="Select successor task">
+        <nz-option *ngFor="let t of flatTasks" [nzValue]="t._id || t.id" [nzLabel]="t.name"></nz-option>
+      </nz-select>
+    </div>
+
+    <div class="form-row" style="margin-top: 16px;">
+      <label>Dependency Type</label>
+      <nz-select [(ngModel)]="depType" class="modal-select">
+        <nz-option nzValue="FS" nzLabel="Finish-to-Start (FS)"></nz-option>
+        <nz-option nzValue="SS" nzLabel="Start-to-Start (SS)"></nz-option>
+        <nz-option nzValue="FF" nzLabel="Finish-to-Finish (FF)"></nz-option>
+        <nz-option nzValue="SF" nzLabel="Start-to-Finish (SF)"></nz-option>
+      </nz-select>
+    </div>
+
+    <div class="form-row" style="margin-top: 16px;">
+      <label>Lag (Days)</label>
+      <input type="number" [(ngModel)]="depLag" class="modal-input" placeholder="0" />
+    </div>
+  </div>
+</nz-modal>
+
+<!-- Task Form Drawer (Edit/Create context) -->
+<app-task-form
+  [visible]="isDrawerVisible"
+  [task]="editingTask"
+  (close)="closeDrawer()"
+  (saved)="onTaskSaved()"
+></app-task-form>

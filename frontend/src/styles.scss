@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+// Import Component CSS
+@import "ng-zorro-antd/ng-zorro-antd.css";
+@import "ag-grid-community/styles/ag-grid.css";
+@import "ag-grid-community/styles/ag-theme-alpine.css";
+@import "@bryntum/gantt/gantt.css";
+@import "@bryntum/gantt/stockholm-light.css";
+
+// --- Enterprise Design Tokens (SAP-Style Clean White & Blue Accent) ---
+:root {
+  --primary-color: #0056b3; // SAP Blue Accent
+  --primary-hover: #004094;
+  --primary-light: #eef5fc;
+  --bg-color: #f7f9fc; // Light background
+  --panel-bg: #ffffff; // Clean white panels
+  --border-color: #e2e8f0; // Delicate grey dividers
+  --text-primary: #1e293b; // Deep slate primary text
+  --text-secondary: #64748b; // Muted text
+  --success-color: #10b981; // Soft emerald
+  --warning-color: #f59e0b; // Amber
+  --danger-color: #ef4444; // Rose red
+  --priority-low: #3b82f6;
+  --priority-medium: #f59e0b;
+  --priority-high: #ef4444;
+  
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+
+// Global Core Overrides
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family);
+  color: var(--text-primary);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+// Custom Premium Scrollbars
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+// NG-ZORRO Overrides for Enterprise SAP Style
+.ant-btn-primary {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: var(--primary-hover) !important;
+    border-color: var(--primary-hover) !important;
+  }
+}
+
+.ant-layout {
+  background-color: var(--bg-color) !important;
+}
+
+.ant-layout-sider {
+  background: var(--panel-bg) !important;
+  border-right: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.ant-layout-header {
+  background: var(--panel-bg) !important;
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 24px !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+}
+
+.ant-menu {
+  background: transparent !important;
+  border-right: none !important;
+}
+
+.ant-menu-item {
+  border-radius: var(--radius-sm);
+  margin: 4px 8px !important;
+  font-weight: 500;
+  color: var(--text-secondary) !important;
+
+  &-selected {
+    background-color: var(--primary-light) !important;
+    color: var(--primary-color) !important;
+    font-weight: 600;
+  }
+}
+
+// Card Layouts with Micro-animations
+.enterprise-card {
+  background: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+// Custom AG Grid Modern Styling overrides
+.ag-theme-alpine, .ag-theme-quartz {
+  --ag-font-family: 'Inter', sans-serif;
+  --ag-font-size: 13px;
+  --ag-grid-size: 4px;
+  --ag-header-background-color: #f8fafc;
+  --ag-header-foreground-color: #475569;
+  --ag-header-cell-hover-background-color: #f1f5f9;
+  --ag-row-hover-color: #f8fafc;
+  --ag-selected-row-background-color: #eef5fc;
+  --ag-border-color: #e2e8f0;
+  
+  .ag-header-cell-label {
+    font-weight: 600;
+  }
+
+  .ag-row {
+    transition: background-color 0.15s ease;
+  }
+}

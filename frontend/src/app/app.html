@@ -1,0 +1,92 @@
+<nz-layout class="app-layout">
+  <!-- Sidebar Navigation -->
+  <nz-sider
+    class="sidebar-panel"
+    nzCollapsible
+    [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null"
+    nzBreakpoint="lg"
+    [nzWidth]="230"
+  >
+    <div class="sidebar-logo">
+      <span nz-icon nzType="project" class="logo-icon"></span>
+      <h2 *ngIf="!isCollapsed">Gantt Manager</h2>
+    </div>
+    
+    <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <!-- Dashboard -->
+      <li nz-menu-item routerLink="/dashboard" routerLinkActive="ant-menu-item-selected">
+        <span nz-icon nzType="dashboard"></span>
+        <span>Dashboard</span>
+      </li>
+
+      <!-- Projects Hub Directory -->
+      <li nz-menu-item routerLink="/projects" routerLinkActive="ant-menu-item-selected">
+        <span nz-icon nzType="folder-open"></span>
+        <span>Projects Hub</span>
+      </li>
+
+      <!-- Gantt Scheduler -->
+      <li nz-menu-item routerLink="/gantt" routerLinkActive="ant-menu-item-selected">
+        <span nz-icon nzType="schedule"></span>
+        <span>Gantt Chart</span>
+      </li>
+
+      <!-- Task Table Inventory -->
+      <li nz-menu-item routerLink="/table" routerLinkActive="ant-menu-item-selected">
+        <span nz-icon nzType="table"></span>
+        <span>Task Inventory</span>
+      </li>
+
+      <!-- Resource Management Hub -->
+      <li nz-menu-item routerLink="/resources" routerLinkActive="ant-menu-item-selected">
+        <span nz-icon nzType="team"></span>
+        <span>Resource Hub</span>
+      </li>
+
+      <!-- Dependency Hub -->
+      <li nz-menu-item routerLink="/dependencies" routerLinkActive="ant-menu-item-selected">
+        <span nz-icon nzType="link"></span>
+        <span>Dependency Hub</span>
+      </li>
+
+      <!-- Recently Deleted Tasks -->
+      <li nz-menu-item routerLink="/recently-deleted-tasks" routerLinkActive="ant-menu-item-selected">
+        <span nz-icon nzType="delete"></span>
+        <span>Recently Deleted Tasks</span>
+      </li>
+    </ul>
+  </nz-sider>
+
+  <!-- Main Viewport Layout -->
+  <nz-layout>
+    <!-- Top Header -->
+    <nz-header class="top-header-bar">
+      <div class="toggle-section">
+        <span
+          class="trigger"
+          nz-icon
+          [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+          (click)="isCollapsed = !isCollapsed"
+        ></span>
+        <span class="brand-sub">Enterprise Portfolio Management POC</span>
+      </div>
+
+      <div class="user-profile-section">
+        <span class="user-badge">POC User</span>
+      </div>
+    </nz-header>
+
+    <!-- Main Dynamic Content Workspace -->
+    <nz-content class="main-content-viewport">
+      <div class="view-scrollable-inner">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <span>Project Management Gantt POC ©2026. Made with Google DeepMind Antigravity.</span>
+    </footer>
+  </nz-layout>
+</nz-layout>

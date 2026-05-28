@@ -1,0 +1,13 @@
+id,parentId,name,description,startDate,endDate,progress,priority,status,isMilestone,dependencyIds
+T1,,Project Inception,Initial project briefing and setup,2026-05-20,2026-05-20,100,high,done,true,
+T2,,Requirements Analysis,Gathering client requirements,2026-05-21,2026-05-25,60,medium,in_progress,false,T1
+T3,,System Architecture,Designing system and DB schema,2026-05-26,2026-05-30,20,high,in_progress,false,T2
+T4,,Phase 1 Milestone,Design signed off by client,2026-05-30,2026-05-30,0,high,todo,true,T3
+T5,,Development Phase,Parent container task for development,2026-06-01,2026-06-15,0,medium,todo,false,T4
+T5.1,T5,Frontend Development,Implement Angular UI components,2026-06-01,2026-06-10,0,medium,todo,false,T4
+T5.2,T5,Backend Development,Implement Node/Express REST & GraphQL APIs,2026-06-01,2026-06-10,0,medium,todo,false,T4:FS:0
+T5.3,T5,API Core Integration,Connect Angular frontend services to GraphQL,2026-06-11,2026-06-12,0,high,todo,false,T5.1:SS:0;T5.2:SS:0
+T6,,Quality Assurance,Perform integration and regression testing,2026-06-13,2026-06-18,0,high,todo,false,T5.3:FS:1
+T7,,Deployment & Launch,Deploy to cloud production environment,2026-06-19,2026-06-20,0,high,todo,false,T6:FS:0
+T8,,Project Completed,Final project sign-off,2026-06-20,2026-06-20,0,high,todo,true,T7
+c

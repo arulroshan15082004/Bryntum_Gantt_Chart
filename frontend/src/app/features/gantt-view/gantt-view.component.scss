@@ -1,0 +1,141 @@
+.gantt-view-container {
+  background: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  height: calc(100vh - 160px);
+  min-height: 580px;
+  display: flex;
+  flex-direction: column;
+}
+
+.empty-layout {
+  text-align: center;
+  padding: 80px 40px;
+  
+  .empty-icon {
+    font-size: 40px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 15px;
+  }
+}
+
+.gantt-layout {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.gantt-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.left-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.legend-panel {
+  display: flex;
+  gap: 16px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-weight: 500;
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .legend-box {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+  }
+  
+  .root-task { background: #3b82f6; border: 1px solid #1d4ed8; }
+  .leaf-task { background: #93c5fd; border: 1px solid #3b82f6; }
+  .milestone-task { background: #ec4899; border-radius: 50%; }
+}
+
+.empty-schedule {
+  text-align: center;
+  padding: 60px 20px;
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  margin-top: 10px;
+
+  .empty-icon {
+    font-size: 32px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+  }
+
+  h3 {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  p {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+}
+
+.dep-form-content {
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+  }
+
+  .modal-select {
+    width: 100%;
+  }
+
+  .modal-input {
+    width: 100%;
+    height: 32px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 0 8px;
+    font-size: 13px;
+    
+    &:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+  }
+}
+
+::ng-deep .b-trial-watermark,
+::ng-deep .b-gantt-trial-watermark,
+::ng-deep [class*="trial-watermark"] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  pointer-events: none !important;
+}
